@@ -1,38 +1,27 @@
 const { response } = require("express");
+
+const { dataUser } = require("../helpers/users-helpers");
+const { encryptHash } = require("../helpers/encrypt");
 const { User } = require("../models");
+
 
 
 const createUser = async ( req, res = response) => {
 
     try {
-        const data = {
-            name_user: 'Carlos',
-            last_name: 'Ortega',
-            second_name: 'Cordova',
-            pass: '123213',
-            email: 'terr1y@gmail.com',
-            registration_number: '202011339',
-        }
-        const {name_user,
-            last_name,
-            second_name,
-            pass,
-            email,
-            registration_number} = data;
+       
+        const { pass: newPass, email, name_user, last_name, second_name, date_of_birth, registration_number } = req.body;
 
-        const dataUser = new User({
-            name_user,
-            last_name,
-            second_name,
-            pass,
-            email,
-            registration_number
-        });
+        const pass = encryptHash(newPass);
 
-        await dataUser.save()
+        const newUser = new User({email, name_user, last_name, second_name, date_of_birth, registration_number, pass })
+        
+        await newUser.save();
+
+        const user = dataUser(newUser);
 
         res.json({
-            msg: 'crear usuario'
+            user
         });
 
     }catch(error) {

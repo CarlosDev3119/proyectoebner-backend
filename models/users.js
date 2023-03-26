@@ -21,6 +21,10 @@ const User = db.define('user', {
             type: DataTypes.STRING,
             allowNull: false
         },
+        date_of_birth:{
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         pass: {
             type: DataTypes.STRING,
             allowNull: false

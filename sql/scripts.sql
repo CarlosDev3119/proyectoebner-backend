@@ -3,19 +3,20 @@ CREATE TABLE users (
     name_user varchar(100) NOT NULL,
     last_name varchar(100) NOT NULL,
     second_name varchar(100) NOT NULL,
-    pass varchar(100) NOT NULL,
+    date_of_birth varchar(100) NOT NULL,
+    pass varchar(255) NOT NULL,
     email varchar(100) UNIQUE NOT NULL,
     registration_number varchar(100) UNIQUE NOT NULL
     
 )ENGINE = INNODB;
 
 CREATE TABLE roles (
-    id_role int PRIMARY KEY,
+    id_role int PRIMARY KEY AUTO_INCREMENT,
     role_name varchar(100) NOT NULL
 )ENGINE = INNODB;
 
 CREATE TABLE permissions (
-    id_permission int PRIMARY KEY,
+    id_permission int PRIMARY KEY AUTO_INCREMENT,
     name_permission varchar(100) NOT NULL
 )ENGINE = INNODB;
 
@@ -25,7 +26,7 @@ CREATE TABLE users_roles_permissions (
     id_permission int,
     PRIMARY KEY (id_user, id_role, id_permission),
     FOREIGN KEY (id_user) REFERENCES users (id_user),
-    FOREIGN KEY (id_role) REFERENCES role (id_role),
+    FOREIGN KEY (id_role) REFERENCES roles (id_role),
     FOREIGN KEY (id_permission) REFERENCES permissions (id_permission)
 )ENGINE = INNODB;
 
